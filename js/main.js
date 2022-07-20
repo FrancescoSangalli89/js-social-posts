@@ -81,7 +81,10 @@ const posts = [
 
 const postsListDom = document.querySelector('.posts-list');
 
-posts.forEach((postObject) => {
+const likesArray = [];
+    console.log(likesArray);
+
+posts.forEach((postObject, index) => {
 
     const post = document.createElement('div');
     post.classList.add('post');
@@ -120,17 +123,31 @@ posts.forEach((postObject) => {
 
     const postFooter = document.createElement('div');
     postFooter.classList.add('post__footer');
-    postFooter.innerHTML = `<div class="likes js-likes">
-                                <div class="likes__cta">
-                                    <a class="like-button  js-like-button" href="#" data-postid="1">
+
+    const postFooterLikes = document.createElement('div');
+    postFooterLikes.classList.add('likes', 'js-likes');
+
+    const postFooterLikesCta = document.createElement('div');
+    postFooterLikesCta.classList.add('likes__cta');
+    postFooterLikesCta.innerHTML =  `<a class="like-button  js-like-button" href="#" data-postid="1">
                                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                         <span class="like-button__label">Mi Piace</span>
-                                    </a>
-                                </div>
-                                <div class="likes__counter">
-                                        Piace a <b id="like-counter-1" class="js-likes-counter">${postObject.likes}</b> persone
-                                </div>
-                            </div> `;
+                                    </a>`;
+    
+    const postFooterLikesCounter = document.createElement('div');
+    postFooterLikesCounter.classList.add('likes__counter');
+    postFooterLikesCounter.innerHTML = `Piace a <b id="${postObject.id}" class="js-likes-counter">${postObject.likes}</b> persone`;
+
+    console.log(postObject.likes);
+
+    postFooterLikesCta.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.target.style.color = 'green';
+        likesArray.push(postObject.id);
+        postFooterLikesCounter.innerHTML = `Piace a <b id="${postObject.id}" class="js-likes-counter">${postObject.likes + 1}</b> persone`;
+    });
+
+    console.log(postObject.likes);
 
     postMetaIcon.append(postImg);
     postMeta.append(postMetaIcon);
@@ -139,7 +156,13 @@ posts.forEach((postObject) => {
     post.append(postHeader);
     post.append(postText);
     post.append(postImage);
+    postFooterLikes.append(postFooterLikesCta);
+    postFooterLikes.append(postFooterLikesCounter);
+    postFooter.append(postFooterLikes);
     post.append(postFooter);
-    postsListDom.append(post);
+    postsListDom.append(post);  
+    
+
+    
 })
 
