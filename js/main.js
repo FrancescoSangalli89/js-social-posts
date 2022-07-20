@@ -1,9 +1,3 @@
-
-// Milestone 3 - Se clicchiamo sul tasto “Mi Piace” cambiamo il 
-// colore al testo del bottone e incrementiamo
-// il counter dei likes relativo.
-// Salviamo in un secondo array gli id dei post ai quali abbiamo 
-// messo il like.
 // **BONUS**
 // 1. Formattare le date in formato italiano (gg/mm/aaaa)
 // 2. Gestire l’assenza dell’immagine profilo con un elemento di 
@@ -12,13 +6,7 @@
 // 3. Al click su un pulsante “Mi Piace” di un post, 
 // se abbiamo già cliccato dobbiamo decrementare il 
 // contatore e cambiare il colore del bottone.
-// Consigli del giorno:
-// Ragioniamo come sempre a step.
-// Prima scriviamo nei commenti la logica in italiano 
-// e poi traduciamo in codice.
-// console.log() è nostro amico.
-// Quando un pezzo di codice funziona, chiediamoci 
-// se possiamo scomporlo in funzioni più piccole.
+
 
 const posts = [
     {
@@ -82,9 +70,17 @@ const posts = [
 const postsListDom = document.querySelector('.posts-list');
 
 const likesArray = [];
-    console.log(likesArray);
+
+console.log(likesArray);
+
+
+
+
+
 
 posts.forEach((postObject, index) => {
+
+    let eDate = postObject.created.split('-').reverse().join('/');
 
     const post = document.createElement('div');
     post.classList.add('post');
@@ -111,7 +107,7 @@ posts.forEach((postObject, index) => {
     const postMetaData = document.createElement('div');
     postMetaData.classList.add('post-meta__data');
     postMetaData.innerHTML = `<div class="post-meta__author">${postObject.author.name}</div>
-                                        <div class="post-meta__time">${postObject.created}</div>`;
+                                        <div class="post-meta__time">${eDate}</div>`;
 
     const postText = document.createElement('div');
     postText.classList.add('post__text');
@@ -138,16 +134,12 @@ posts.forEach((postObject, index) => {
     postFooterLikesCounter.classList.add('likes__counter');
     postFooterLikesCounter.innerHTML = `Piace a <b id="${postObject.id}" class="js-likes-counter">${postObject.likes}</b> persone`;
 
-    console.log(postObject.likes);
-
     postFooterLikesCta.addEventListener('click', function (event) {
         event.preventDefault();
         event.target.style.color = 'green';
         likesArray.push(postObject.id);
         postFooterLikesCounter.innerHTML = `Piace a <b id="${postObject.id}" class="js-likes-counter">${postObject.likes + 1}</b> persone`;
     });
-
-    console.log(postObject.likes);
 
     postMetaIcon.append(postImg);
     postMeta.append(postMetaIcon);
@@ -165,4 +157,4 @@ posts.forEach((postObject, index) => {
 
     
 })
-
+    
