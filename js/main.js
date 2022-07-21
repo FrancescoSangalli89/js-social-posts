@@ -1,5 +1,4 @@
-// **BONUS**
-// 1. Formattare le date in formato italiano (gg/mm/aaaa)
+
 // 2. Gestire l’assenza dell’immagine profilo con un elemento di 
 // fallback che contiene le iniziali dell’utente 
 // (es. Luca Formicola > LF).
@@ -66,17 +65,11 @@ const posts = [
     }
 ];
 
-
 const postsListDom = document.querySelector('.posts-list');
 
 const likesArray = [];
 
 console.log(likesArray);
-
-
-
-
-
 
 posts.forEach((postObject, index) => {
 
@@ -125,7 +118,7 @@ posts.forEach((postObject, index) => {
 
     const postFooterLikesCta = document.createElement('div');
     postFooterLikesCta.classList.add('likes__cta');
-    postFooterLikesCta.innerHTML =  `<a class="like-button  js-like-button" href="#" data-postid="1">
+    postFooterLikesCta.innerHTML =  `<a class="like-button  js-like-button" href="#" data-postid="${postObject.id}">
                                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                         <span class="like-button__label">Mi Piace</span>
                                     </a>`;
@@ -136,7 +129,7 @@ posts.forEach((postObject, index) => {
 
     postFooterLikesCta.addEventListener('click', function (event) {
         event.preventDefault();
-        event.target.style.color = 'green';
+        event.target.classList.add('like-button--liked');
         likesArray.push(postObject.id);
         postFooterLikesCounter.innerHTML = `Piace a <b id="${postObject.id}" class="js-likes-counter">${postObject.likes + 1}</b> persone`;
     });
@@ -154,7 +147,4 @@ posts.forEach((postObject, index) => {
     post.append(postFooter);
     postsListDom.append(post);  
     
-
-    
 })
-    
